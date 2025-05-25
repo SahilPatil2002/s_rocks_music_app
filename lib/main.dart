@@ -1,13 +1,18 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:s_rocks_music_app/controllers/service_controller.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(),
@@ -24,7 +29,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController taskController = TextEditingController();
-  
+  final ServiceController serviceController = Get.put(ServiceController());
 
   @override
   Widget build(BuildContext context) {
@@ -191,68 +196,92 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
           ),
-          Expanded(
-            child: ListView.builder(
-              itemCount: 4,
-              itemBuilder: (context, index) {
-                if (index == 0) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Center(
-                          child: Text(
-                            "Hire hand-picked Pros for popular music services",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontFamily: "Syne",
-                              fontWeight: FontWeight.w300,
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 8),
-                        Card(
-                          child: ListTile(
-                            leading: Icon(Icons.star, color: Colors.blue),
-                            title: Text('Item ${index + 1}'),
-                            subtitle: Text(
-                              'This is the subtitle for item ${index + 1}',
-                            ),
-                            trailing: Icon(Icons.arrow_forward_ios),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
-                } else {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 10,
-                      vertical: 6,
-                    ),
-                    child: Card(
-                      child: ListTile(
-                        leading: Icon(Icons.star, color: Colors.blue),
-                        title: Text('Item ${index + 1}'),
-                        subtitle: Text(
-                          'This is the subtitle for item ${index + 1}',
-                        ),
-                        trailing: Icon(Icons.arrow_forward_ios),
-                      ),
-                    ),
-                  );
-                }
-              },
+          Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16.0,
+              vertical: 16.0,
             ),
+            child: Text(
+              "Hire hand-picked Pros for popular music services",
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+                fontFamily: "Syne",
+              ),
+            ),
+          ),
+          Expanded(
+            child: Obx(() {
+              if (serviceController.services.isEmpty) {
+                return Center(child: CircularProgressIndicator());
+              }
+
+              return Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10),
+                child: ListView.builder(
+                  itemCount: serviceController.services.length,
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  itemBuilder: (context, index) {
+                    final service = serviceController.services[index];
+                    return GestureDetector(
+                      onTap: () {
+                        // Get.to(() => ServiceDetailScreen(title: service.title));
+                      },
+                      child: Card(
+                        color: Color(0xFF2C2C35),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        margin: EdgeInsets.symmetric(vertical: 10),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            image: DecorationImage(
+                              image: AssetImage(service.image),
+                              fit: BoxFit.cover,
+                              colorFilter: ColorFilter.mode(
+                                Color.fromRGBO(32, 33, 38, 0.9),
+                                BlendMode.darken,
+                              ),
+                            ),
+                          ),
+                          child: ListTile(
+                            leading: Image.asset(
+                              service.icon,
+                              width: 40,
+                              height: 40,
+                            ),
+                            title: Text(
+                              service.title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontFamily: "Syne",
+                                fontSize: 17,
+                                fontWeight: FontWeight.w400,
+                                letterSpacing: 1,
+                              ),
+                            ),
+                            subtitle: Text(
+                              service.description,
+                              style: TextStyle(color: Colors.white70),
+                            ),
+                            trailing: Icon(
+                              Icons.arrow_forward_ios,
+                              color: Colors.white,
+                              size: 18,
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              );
+            }),
           ),
         ],
       ),
-      
     );
   }
 }

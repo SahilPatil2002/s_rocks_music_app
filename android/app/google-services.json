@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1089765052361",
+    "project_id": "assingment-ee4c8",
+    "storage_bucket": "assingment-ee4c8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1089765052361:android:b556b45bac51196ac22218",
+        "android_client_info": {
+          "package_name": "com.example.s_rocks_music_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBOzEf0_1MGcYm8oQPDH6IT_vrbpgbEB90"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
