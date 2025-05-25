@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:s_rocks_music_app/controllers/service_controller.dart';
+import 'package:s_rocks_music_app/screens/service_detail_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +31,22 @@ class _MyHomePageState extends State<MyHomePage> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController taskController = TextEditingController();
   final ServiceController serviceController = Get.put(ServiceController());
+
+  int _selectedIndex = 0;
+
+  final List<String> _titles = ["Home", "News", "TrackBox", "Projects"];
+  final List<String> _icons = [
+    "assets/icons/home.png",
+    "assets/icons/news.png",
+    "assets/icons/trackbox.png",
+    "assets/icons/projects.png",
+  ];
+
+  void _onTabTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +243,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     final service = serviceController.services[index];
                     return GestureDetector(
                       onTap: () {
-                        // Get.to(() => ServiceDetailScreen(title: service.title));
+                        Get.to(() => ServiceDetailScreen(title: service.title));
                       },
                       child: Card(
                         color: Color(0xFF2C2C35),
@@ -282,6 +299,54 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
         ],
       ),
+
+      bottomNavigationBar: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          color: Color(0xFF18171C),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20),
+            topRight: Radius.circular(20),
+          ),
+        ),
+        child: Stack(
+          children: [
+            // Ellipse Positioned Above
+            
+
+            // Nav Items
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: List.generate(_icons.length, (index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _selectedIndex = index;
+                    });
+                  },
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        _icons[index],
+                        height: 26,
+                        color: Colors.white,
+                      ),
+                      SizedBox(height: 4),
+                      Text(
+                        _titles[index],
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                );
+              }),
+            ),
+          ],
+        ),
+      ),
     );
   }
+
+  
 }
