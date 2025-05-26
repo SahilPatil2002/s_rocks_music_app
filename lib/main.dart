@@ -301,52 +301,68 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
 
       bottomNavigationBar: Container(
-        height: 80,
-        decoration: BoxDecoration(
-          color: Color(0xFF18171C),
+        padding: const EdgeInsets.only(top: 4, bottom: 10),
+        decoration: const BoxDecoration(
+          color: Color(0xFF1E1E26),
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20),
-            topRight: Radius.circular(20),
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
           ),
         ),
-        child: Stack(
-          children: [
-            // Ellipse Positioned Above
-            
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: List.generate(_icons.length, (index) {
+            final isSelected = _selectedIndex == index;
 
-            // Nav Items
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(_icons.length, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedIndex = index;
-                    });
-                  },
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        _icons[index],
-                        height: 26,
-                        color: Colors.white,
+            return GestureDetector(
+              onTap: () => _onTabTapped(index),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Ellipse Indicator
+                  if (isSelected)
+                    Transform.translate(
+                      offset: Offset(0, -10),
+                      child: ClipRect(
+                        child: Align(
+                          alignment: Alignment.topCenter,
+                          // heightFactor: 0.5, // Show only top half of image
+                          child: Image.asset(
+                            'assets/icons/ellips.png', // replace with your path
+                            width: 20,
+                            height: 20,
+                          ),
+                        ),
                       ),
-                      SizedBox(height: 4),
-                      Text(
-                        _titles[index],
-                        style: TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ],
+                    )
+                  else
+                    SizedBox(height: 10), // Keep height same for layout balance
+
+                  const SizedBox(height: 4),
+                  // Icon
+                  Image.asset(
+                    _icons[index],
+                    width: 28,
+                    height: 28,
+                    color: isSelected ? Colors.white : Colors.white60,
+
                   ),
-                );
-              }),
-            ),
-          ],
+                  const SizedBox(height: 4),
+                  // Label
+                  Text(
+                    _titles[index],
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold,
+                      color: isSelected ? Colors.white : Colors.white60,
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }),
         ),
       ),
     );
   }
-
-  
 }

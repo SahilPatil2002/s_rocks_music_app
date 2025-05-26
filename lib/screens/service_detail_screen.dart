@@ -26,7 +26,8 @@ class ServiceDetailScreen extends StatelessWidget {
                   Color.fromRGBO(86, 1, 33, 1),
                   Color.fromRGBO(169, 1, 63, 1),
                 ],
-              ),),
+              ),
+              ),
         child: Center(
           child: Text(
             'You tapped on: $title',
