@@ -319,16 +319,14 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Ellipse Indicator
                   if (isSelected)
                     Transform.translate(
                       offset: Offset(0, -10),
                       child: ClipRect(
                         child: Align(
                           alignment: Alignment.topCenter,
-                          // heightFactor: 0.5, // Show only top half of image
                           child: Image.asset(
-                            'assets/icons/ellips.png', // replace with your path
+                            'assets/icons/ellips.png',
                             width: 20,
                             height: 20,
                           ),
@@ -336,10 +334,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     )
                   else
-                    SizedBox(height: 10), // Keep height same for layout balance
-
+                    SizedBox(height: 10), 
                   const SizedBox(height: 4),
-                  // Icon
                   Image.asset(
                     _icons[index],
                     width: 28,
@@ -348,7 +344,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   ),
                   const SizedBox(height: 4),
-                  // Label
                   Text(
                     _titles[index],
                     style: TextStyle(
