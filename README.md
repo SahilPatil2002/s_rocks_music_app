@@ -1,16 +1,12 @@
-# s_rocks_music_app
+# S-Rocks Music App
 
-A new Flutter project.
+A modern music service Flutter app that features a stylish UI with custom service cards and a dynamic bottom navigation bar. The app fetches service data from Firebase Firestore and uses GetX for smooth state management and responsiveness.
 
-## Getting Started
+### Key Features
+- Firebase Firestore integration for dynamic content.
+- GetX for efficient state and navigation management.
+- Custom-designed bottom navigation with animated ellipse indicator.
+- Assets organized into images, icons, and fonts.
+- Clean and scalable folder structure for maintainable code.
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+This project focuses on providing an elegant user experience while practicing clean architecture and real-time data handling in Flutter.
